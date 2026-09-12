@@ -88,3 +88,68 @@ int main(int argc, char *argv[]) {
     
     return compiler_compile(&opts);
 }
+if (lexer->source[lexer->position] == '=') {
+                    type = TOK_NEQ;
+                    lexer_advance(lexer);
+                } else {
+                    type = TOK_BANG;
+                }
+            } else if (c == '<') {
+                lexer_advance(lexer);
+                if (lexer->source[lexer->position] == '=') {
+                    type = TOK_LEQ;
+                    lexer_advance(lexer);
+                } else {
+                    type = TOK_LT;
+                }
+            } else if (c == '>') {
+                lexer_advance(lexer);
+                if (lexer->source[lexer->position] == '=') {
+                    type = TOK_GEQ;
+                    lexer_advance(lexer);
+                } else {
+                    type = TOK_GT;
+                }
+            } else if (c == '&') {
+                lexer_advance(lexer);
+                type = lexer->source[lexer->position] == '&' ? TOK_AND : TOK_AMP;
+                if (lexer->source[lexer->position] == '&') lexer_advance(lexer);
+            } else if (c == '|') {
+                lexer_advance(lexer);
+                type = lexer->source[lexer->position] == '|' ? TOK_OR : TOK_PIPE;
+                if (lexer->source[lexer->position] == '|') lexer_advance(lexer);
+            } else if (c == '(') {
+                type = TOK_LPAREN;
+                lexer_advance(lexer);
+            } else if (c == ')') {
+                type = TOK_RPAREN;
+                lexer_advance(lexer);
+            } else if (c == '{') {
+                type = TOK_LBRACE;
+                lexer_advance(lexer);
+            } else if (c == '}') {
+                type = TOK_RBRACE;
+                lexer_advance(lexer);
+            } else if (c == '[') {
+                type = TOK_LBRACKET;
+                lexer_advance(lexer);
+            } else if (c == ']') {
+                type = TOK_RBRACKET;
+                lexer_advance(lexer);
+            } else if (c == ';') {
+                type = TOK_SEMICOLON;
+                lexer_advance(lexer);
+            } else if (c == ',') {
+                type = TOK_COMMA;
+                lexer_advance(lexer);
+            } else if (c == '.') {
+                type = TOK_DOT;
+                lexer_advance(lexer);
+            } else if (c == ':') {
+                type = TOK_COLON;
+                lexer_advance(lexer);
+            } else {
+                fprintf(stderr, "Unexpected character '%c' at line %d, column %d\n", c, lexer->line, lexer->column);
+            }
+
+            

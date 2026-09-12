@@ -52,3 +52,11 @@ const char *obfuscation_get_report(ObfuscationEngine *engine);
 void obfuscation_free(ObfuscationEngine *engine);
 
 #endif
+typedef struct {
+    ObfuscationLevel level;
+    uint32_t seed;
+    bool enable_string_encoding;
+    bool enable_name_mangling;
+    bool enable_control_flow_flattening;
+    bool keep_debug_symbols;
+} ObfuscationOptions;

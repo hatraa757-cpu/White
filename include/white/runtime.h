@@ -63,5 +63,7 @@ void white_print_complex(white_complex c);
 void white_print_iq(white_iq iq);
 void white_print_signal(white_signal *s);
 void white_print_spectrum(white_spectrum *sp);
+void white_print_signal_to_file(white_signal *s, const char *filename);
+void
 
 #endif

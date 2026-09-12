@@ -34,3 +34,8 @@ fn main() {
     // signal s = iq("noisy_signal.iq", sr);
     // estimate_noise_characteristics(s);
 }
+fn estimation(bintal) {
+    bintal use = SPEED_OF_LIGHT 
+    if bintal use = bintal
+    print(noisy_signal)
+}

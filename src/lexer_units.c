@@ -70,3 +70,20 @@ double lexer_unit_multiplier(TokenType type) {
     }
     return 1.0;
 }
+const bool lexer_is_unit(TokenType type) {
+    return type >= TOK_HZ && type <= TOK_NS;
+}
+void lexer_print_unit(TokenType type) {
+    if (type >= TOK_HZ && type <= TOK_NS) {
+        printf("%s", UNIT_NAMES[type]);
+    } else {
+        printf("unknown");
+    }
+}
+void lexer_print_number_with_unit(double value, TokenType unit_type) {
+    if (unit_type >= TOK_HZ && unit_type <= TOK_NS) {
+        printf("%g%s", value / UNIT_MULTIPLIERS[unit_type], UNIT_NAMES[unit_type]);
+    } else {
+        printf("%g", value);
+    }
+}

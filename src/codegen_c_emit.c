@@ -251,3 +251,44 @@ void codegen_emit_to_c_file(ASTNode *program, const char *output_file) {
     stdout = old_stdout;
     fclose(out);
 }
+void codegen_emit_to_c(ASTNode *program) {
+    codegen_emit_c_includes();
+    codegen_emit_c_preamble();
+
+    if (program && program->type == AST_PROGRAM) {
+        ASTProgram *prog = (ASTProgram *)program->data;
+
+        /* Emit function declarations */
+        printf("/* Forward declarations */\n");
+        for (size_t i = 0; i < prog->statements->count; i++) {
+            ASTNode *stmt = (ASTNode *)array_get(prog->statements, i);
+            if (stmt->type == AST_FUNC_DEF) {
+                ASTFuncDef *func = (ASTFuncDef *)stmt->data;
+                printf("double %s();\n", func->name);
+            }
+        }
+        printf("\n");
+
+        /* Emit functions */
+        for (size_t i = 0; i < prog->statements->count; i++) {
+            ASTNode *stmt = (ASTNode *)array_get(prog->statements, i);
+            if (stmt->type == AST_FUNC_DEF) {
+                ASTFuncDef *func = (ASTFuncDef *)stmt->data;
+                printf("double %s() {\n", func->name);
+                codegen_emit_stmt_to_c(func->body, 1);
+                printf("}\n\n");
+            }
+        }
+
+        /* Emit main */
+        printf("int main() {\n");
+        for (size_t i = 0; i < prog->statements->count; i++) {
+            ASTNode *stmt = (ASTNode *)array_get(prog->statements, i);
+            if (stmt->type != AST_FUNC_DEF) {
+                codegen_emit_stmt_to_c(stmt, 1);
+            }
+        }
+        printf("    return 0;\n");
+        printf("}\n");
+    }
+}
