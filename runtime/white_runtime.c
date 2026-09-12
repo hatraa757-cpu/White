@@ -236,3 +236,14 @@ void white_print_spectrum(white_spectrum *sp) {
     }
     if (sp->length > 10) printf("  ... (%zu more bins)\n", sp->length - 10);
 }
+void white_signal_save_iq(white_signal *s, const char *filename) {
+    if (!s || !filename) return;
+
+    FILE *f = fopen(filename, "wb");
+    if (!f) {
+        fprintf(stderr, "Error: Failed to open file for writing\n");
+        return;
+    }
+    // Implement IQ signal saving logic here
+    fclose(f);
+}

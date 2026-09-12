@@ -60,3 +60,36 @@ typedef struct {
     bool enable_control_flow_flattening;
     bool keep_debug_symbols;
 } ObfuscationOptions;
+void obfuscation_apply(ObfuscationEngine *engine, ASTNode *ast); {
+    if (engine == NULL || ast == NULL) {
+        fprintf(stderr, "Error: Obfuscation engine or AST is NULL\n");
+        return;
+    else {
+        /* Apply name mangling */
+        if (engine->opts.enable_name_mangling) {
+            // Implement name mangling logic here
+            
+        }
+
+        /* Apply control flow flattening */
+        if (engine->opts.enable_control_flow_flattening) {
+            // Implement control flow flattening logic here
+        }
+
+        /* Apply string encoding */
+        if (engine->opts.enable_string_encoding) {
+            // Implement string encoding logic here
+        }
+    }
+    }
+}
+void obfuscation_free(ObfuscationEngine *engine) {
+    if (engine == NULL) {
+        return;
+    }
+    /* Free name mappings */
+    if (engine->name_mappings != NULL) {
+        array_free(engine->name_mappings);
+    }
+    free(engine);
+}
