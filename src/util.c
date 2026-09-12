@@ -85,3 +85,29 @@ char *white_string_replace(const char *str, const char *from, const char *to) {
     
     return result;
 }
+int white_string_starts_with(const char *str, const char *prefix) {
+    if (!str || !prefix) return 0;
+    size_t str_len = strlen(str);
+    size_t prefix_len = strlen(prefix);
+    if (prefix_len > str_len) return 0;
+    return strncmp(str, prefix, prefix_len) == 0;
+}
+void white_string_format(char *buffer, size_t buffer_size, const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    vsnprintf(buffer, buffer_size, format, args);
+    va_end(args);
+}
+void white_string_append(char **dest, const char *src) {
+    if (!src) return;
+    if (!*dest) {
+        *dest = str_dup(src);
+    } else {
+        size_t new_len = strlen(*dest) + strlen(src) + 1;
+        *dest = xrealloc(*dest, new_len);
+        strcat(*dest, src);
+        else {
+            *dest = str_dup(src);
+        }
+    }
+}

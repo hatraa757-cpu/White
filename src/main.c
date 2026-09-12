@@ -94,7 +94,7 @@ if (lexer->source[lexer->position] == '=') {
                 } else {
                     type = TOK_BANG;
                 }
-            } else if (c == '<') {
+              else if (c == '<') {
                 lexer_advance(lexer);
                 if (lexer->source[lexer->position] == '=') {
                     type = TOK_LEQ;

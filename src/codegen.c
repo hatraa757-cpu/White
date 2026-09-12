@@ -297,3 +297,14 @@ void codegen_free(CodeGenerator *cg) {
     array_free(cg->output);
     xfree(cg);
 }
+int codegen_write_output_to_file(CodeGenerator *cg, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (!file) return -1;
+    
+    for (size_t i = 0; i < cg->output->count; i++) {
+        fprintf(file, "%s\n", (char *)array_get(cg->output, i));
+    }
+    
+    fclose(file);
+    return 0;
+}

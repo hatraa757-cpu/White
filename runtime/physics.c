@@ -81,3 +81,7 @@ double white_q_factor(double frequency, double bandwidth) {
     if (bandwidth <= 0.0) return 0.0;
     return frequency / bandwidth;
 }
+double white_bandwidth_from_q(double frequency, double q_factor) {
+    if (q_factor <= 0.0) return 0.0;
+    return frequency / q_factor;
+}
