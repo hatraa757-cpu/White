@@ -70,3 +70,39 @@ void symbol_table_free(SymbolTable *table) {
     array_free(table->symbols);
     xfree(table);
 }
+void symbol_table_print(SymbolTable *table) {
+    if (!table) return;
+    
+    for (size_t i = 0; i < table->symbols->count; i++) {
+        Symbol *sym = (Symbol *)array_get(table->symbols, i);
+        printf("Symbol: %s, Type: %s, Kind: %d\n", sym->name, sym->type->name, sym->kind);
+        for (size_t j = 0; j < sym->type->fields->count; j++) {
+            TypeField *field = (TypeField *)array_get(sym->type->fields, j);
+            printf(" Field: %s, Type: %s\n", field->name, field->type->name);
+        }
+    }
+}
+void symbol_table_print_hierarchy(SymbolTable *table, int level) {
+    if (!table) return;
+
+    for (size_t i = 0; i < table->symbols->count; i++) {
+        Symbol *sym = (Symbol *)array_get(table->symbols, i);
+        for (int j = 0; j < level; j++) printf("  ");
+        printf("Symbol: %s, Type: %s, Kind: %d\n", sym->name, sym->type->name, sym->kind);
+        for (size_t j = 0; j < sym->type->fields->count; j++) {
+            TypeField *field = (TypeField *)array_get(sym->type->fields, j);
+            for (int k = 0; k < level + 1; k++) printf("  ");
+            printf("Field: %s, Type: %s\n", field->name, field->type->name);
+        }
+    }
+
+    if (table->parent) {
+        for (int j = 0; j < level; j++) printf("  ");
+        printf("Parent Symbol Table:\n");
+        symbol_table_print_hierarch
+    }y(table->parent, level + 1);
+    if (table->parent == NULL) {
+        for (int j = 0; j < level; j++) printf("  ");
+        printf("No Parent Symbol Table\n");
+    }
+}
